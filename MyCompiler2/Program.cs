@@ -16,8 +16,7 @@ namespace MyCompiler2
         {
             Parser pars = new Parser(@"class amjad {
 int main(){
-;
-int x;
+int x=5;
 }
 }");
 

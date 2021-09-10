@@ -23,3 +23,9 @@ D:\Desktop\cd prject\cdproject1234\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2
 D:\Desktop\cd prject\cdproject1234\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.csprojResolveAssemblyReference.cache
 D:\Desktop\cd prject\cdproject1234\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.exe
 D:\Desktop\cd prject\cdproject1234\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.pdb
+D:\Desktop\New folder (3)\cdprojectamjad\MyCompiler2\bin\Debug\MyCompiler2.exe.config
+D:\Desktop\New folder (3)\cdprojectamjad\MyCompiler2\obj\Debug\MyCompiler2.exe
+D:\Desktop\New folder (3)\cdprojectamjad\MyCompiler2\obj\Debug\MyCompiler2.pdb
+D:\Desktop\New folder (3)\cdprojectamjad\MyCompiler2\bin\Debug\MyCompiler2.exe
+D:\Desktop\New folder (3)\cdprojectamjad\MyCompiler2\bin\Debug\MyCompiler2.pdb
+D:\Desktop\New folder (3)\cdprojectamjad\MyCompiler2\obj\Debug\MyCompiler2.csprojResolveAssemblyReference.cache

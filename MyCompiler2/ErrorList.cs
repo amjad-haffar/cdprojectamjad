@@ -15,7 +15,10 @@ namespace MyCompiler2
             this.errors.Add(new Error(-1, "compiled", "true"));
         }
         public void adderror(Error e){
-            this.errors.Add(e);
+            if (e.Message != "")
+            {
+                this.errors.Add(e);
+            }
         }
         public void printList()
         {
