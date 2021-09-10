@@ -31,6 +31,8 @@ namespace MyCompiler2
             keywordLanList.Add("else");
             keywordLanList.Add("return");
             keywordLanList.Add("endl");
+            keywordLanList.Add("class");
+            keywordLanList.Add("main");
 
 
             dataTypeLanList.Add("int");
@@ -292,7 +294,7 @@ namespace MyCompiler2
                 }
                
 
-                else if (ch == ';' || ch == ',' || ch == '=' || ch == '.' || ch == '(' || ch == ')' || ch == '{' || ch == '}' || ch == '<' || ch == '>' || ch == '+' || ch == '*' || ch == '/' || ch == '-'||ch=='&'||ch=='|'|| ch == '['|| ch == ']'||ch=='%')
+                else if (ch == ';' || ch == ',' || ch == '=' || ch == '.' || ch == '(' || ch == ')' || ch == '{' || ch == '}' || ch == '<' || ch == '>' || ch == '+' || ch == '*' || ch == '/' || ch == '-'||ch=='&'||ch=='|'|| ch == '['|| ch == ']')
 
                 {
                     if (ch == '<')

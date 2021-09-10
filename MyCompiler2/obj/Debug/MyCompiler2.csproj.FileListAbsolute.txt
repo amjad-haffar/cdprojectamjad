@@ -1,0 +1,25 @@
+C:\Users\ASUS\Desktop\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.exe.config
+C:\Users\ASUS\Desktop\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.exe
+C:\Users\ASUS\Desktop\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.pdb
+C:\Users\ASUS\Desktop\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.csprojAssemblyReference.cache
+C:\Users\ASUS\Desktop\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.exe
+C:\Users\ASUS\Desktop\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.pdb
+C:\Users\bisher\Desktop\Lecture 3 & 4 (Lexical)\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.exe.config
+C:\Users\bisher\Desktop\Lecture 3 & 4 (Lexical)\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.exe
+C:\Users\bisher\Desktop\Lecture 3 & 4 (Lexical)\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.pdb
+C:\Users\bisher\Desktop\Lecture 3 & 4 (Lexical)\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.exe
+C:\Users\bisher\Desktop\Lecture 3 & 4 (Lexical)\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.pdb
+C:\Users\bisher\Desktop\Lecture 3 & 4 (Lexical)\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.csprojResolveAssemblyReference.cache
+C:\Users\bisher\Desktop\code\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.exe.config
+C:\Users\bisher\Desktop\code\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.exe
+C:\Users\bisher\Desktop\code\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.pdb
+C:\Users\bisher\Desktop\code\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.exe
+C:\Users\bisher\Desktop\code\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.pdb
+C:\Users\bisher\Desktop\code\Lecture 3 & 4 (Lexical)\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.csprojResolveAssemblyReference.cache
+D:\Desktop\cd prject\cdproject1234\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.exe.config
+D:\Desktop\cd prject\cdproject1234\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.exe
+D:\Desktop\cd prject\cdproject1234\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.pdb
+D:\Desktop\cd prject\cdproject1234\MyCompiler2\MyCompiler2\obj\Debug\MyCompiler2.csprojResolveAssemblyReference.cache
+D:\Desktop\cd prject\cdproject1234\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.exe
+D:\Desktop\cd prject\cdproject1234\MyCompiler2\MyCompiler2\bin\Debug\MyCompiler2.pdb
