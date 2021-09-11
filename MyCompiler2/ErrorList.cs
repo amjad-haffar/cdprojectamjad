@@ -12,7 +12,7 @@ namespace MyCompiler2
         public ErrorList()
         {
             this.errors= new List<Error>();
-            this.errors.Add(new Error(-1, "compiled", "true"));
+            this.errors.Add(new Error(-1, "compiled"));
         }
         public void adderror(Error e){
             this.errors.Add(e);

@@ -52,6 +52,7 @@ namespace MyCompiler2
         }
         public bool StartProgram()
         {
+            Error e = new Error();
             if (lex.TL.tokens[index].value == "class")
             {
                 index++;
@@ -196,7 +197,7 @@ namespace MyCompiler2
             }
             return false;
         }
-        public bool Parameter()
+        public bool Parameter(String tmpIdToken)
         {
             Error e = new Error();
             if (lex.TL.tokens[index].type == Language.DataType)
@@ -230,7 +231,7 @@ namespace MyCompiler2
             EL.adderror(e);
             return false;
         }
-        public bool PP()
+        public bool PP(String tmpIdToken)
         {
             Error e = new Error();
             
@@ -264,19 +265,15 @@ namespace MyCompiler2
         }
         public bool MainMethod()
         {
-        cc:
+            Error e = new Error();
             if (lex.TL.tokens[index].value == "int")
-            {
-            ff: index++;
+            {index++;
                 if (lex.TL.tokens[index].type == Language.Keyword)
-                {
-                dd: index++;
+                {index++;
                     if (lex.TL.tokens[index].value == "(")
-                    {
-                    xx: index++;
+                    {index++;
                         if (lex.TL.tokens[index].value == ")")
-                        {
-                        cx: index++;
+                        {index++;
                             if (lex.TL.tokens[index].value == "{")
                             {
                                 index++;
@@ -293,55 +290,37 @@ namespace MyCompiler2
                                     }
                                     else
                                     {
-                                        Console.WriteLine("ERRoR forget } ");
-                                        lex.TL.tokens[index].value = "}";
-                                        index--;
-                                        //goto cx;
-
+                                        e.Message = "ERRoR forget }";
                                     }
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("ERRoR forget { ");
-                                lex.TL.tokens[index].value = "{";
-                                index--;
-                                //goto cx;
+
+                                e.Message = "ERRoR forget {";
                             }
                         }
                         else
                         {
-                            Console.WriteLine("ERRoR forget ) ");
-                            lex.TL.tokens[index].value = ")";
-                            index--;
-                            //goto xx;
-
+                            e.Message = "ERRoR forget ) ";
                         }
                     }
                     else
                     {
-                        Console.WriteLine("ERRoR forget ( ");
-                        lex.TL.tokens[index].value = "(";
-                        index--;
-                        //goto dd;
+                        e.Message = "ERRoR forget ( ";
                     }
                 }
                 else
                 {
-                    //Console.WriteLine("ERRoR must be main  ");
-                    lex.TL.tokens[index].value = "main";
-                    index--;
-                    //goto ff;
+                    e.Message = "ERRoR must be main ";
                 }
             }
             else
             {
-
-                Console.WriteLine("ERRoR must be int  ");
-                lex.TL.tokens[index].value = "int";
-                //goto cc;
-
+                e.Message = "ERRoR must be int ";
             }
+            e.lineNumber = lex.TL.tokens[index].line;
+            EL.adderror(e);
             return false;
         }
         //statments
@@ -429,10 +408,8 @@ namespace MyCompiler2
             else
             {
                 EL.adderror(new Error(lex.TL.tokens[index].line, "wrong start of statment"));
-                Console.WriteLine(lex.TL.tokens[index].value);
                 for (int search = index; search < lex.TL.tokens.Count; search++)
                 {
-                    Console.WriteLine(lex.TL.tokens[index].value);
                     if (lex.TL.tokens[search].value == ";" || lex.TL.tokens[search].value == "}")
                     {
                         index = search;
@@ -577,17 +554,17 @@ namespace MyCompiler2
                     }
                     else if (ST.searchSymbolbyName3(tmpIdToken.value, scopeCounter))
                     {
-
-                        Console.WriteLine("ERRor in name");
+                        e.Message = "error in name";
                     }
 
                 }
                 else if (ST.searchSymbolByName(tmpIdToken.value))
                 {
-
-                    Console.WriteLine("ERRor in name");
+                    e.Message = "Error in name";
                 }
             }
+            e.lineNumber = lex.TL.tokens[index].line;
+            EL.adderror(e);
             return false;
         }
         public bool E(string tmptype)
@@ -841,6 +818,7 @@ namespace MyCompiler2
         //call function
         public bool Callfunction()
         {
+            Error e = new Error();
             Token gg = lex.TL.tokens[index];
             if (ST1.searchSymbolbyName3(lex.TL.tokens[index].value))
             {
@@ -868,7 +846,9 @@ namespace MyCompiler2
             }
             else
             {
-                Console.WriteLine("Error no function with this name");
+                e.Message = "no function with this name";
+                e.lineNumber = lex.TL.tokens[index].line;
+                EL.adderror(e);
                 return false;
 
             }
@@ -900,16 +880,10 @@ namespace MyCompiler2
                 {
                     if (ST.searchSymbolByName(lex.TL.tokens[index].value))
                     {
-                      
-                         //  Console.WriteLine();
                             index++;
                             return true;
-                        
                     }
                 }
-
-                
-
             }
             if (Values() != "")
             {
@@ -1168,6 +1142,7 @@ namespace MyCompiler2
         }
         public bool Factor2(string tmptype)
         {
+            Error e = new Error();
             Token tmpIdToken = lex.TL.tokens[index];
             if (lex.TL.tokens[index].value == "(")
             {
@@ -1205,8 +1180,9 @@ namespace MyCompiler2
                     }
                     else
                     {
-                        Console.WriteLine("Error type");
-                        Console.WriteLine(tmptype);
+                        e.Message = "error type: "+ tmptype;
+                        e.lineNumber = lex.TL.tokens[index].line;
+                        EL.adderror(e);
                         return false;
                     }
                 }
@@ -1221,12 +1197,15 @@ namespace MyCompiler2
 
                     else
                     {
-                        Console.WriteLine("Error you must Declare " + lex.TL.tokens[index].value);
+                        e.Message="Error you must Declare " + lex.TL.tokens[index].value;
+                        e.lineNumber = lex.TL.tokens[index].line;
+                        EL.adderror(e);
                         return false;
                     }
                 }
             }
-
+            e.lineNumber = lex.TL.tokens[index].line;
+            EL.adderror(e);
             return false;
         }
         public bool ArrayIndex(string tmptype, string indexnumber)
@@ -1253,6 +1232,7 @@ namespace MyCompiler2
         }
         public bool Element(string tmptype, string indexnumber)
         {
+            Error e = new Error();
             if (!(indexarrynumber > Convert.ToInt32(indexnumber)))
             {
                 if (ArryVal(tmptype, indexnumber))
@@ -1277,14 +1257,18 @@ namespace MyCompiler2
             }
             else
             {
-                Console.WriteLine("ERRoR in index ARRy");
+                e.Message = "ERRoR in index ARRy";
+                e.lineNumber = lex.TL.tokens[index].line;
+                EL.adderror(e);
                 return false;
             }
-
+            e.lineNumber = lex.TL.tokens[index].line;
+            EL.adderror(e);
             return false;
         }
         public bool ArryVal(string tmptype, string indexnumber)
         {
+            Error e = new Error();
             if (ArrayIndex(tmptype, indexnumber))
             {
                 return true;
@@ -1300,11 +1284,15 @@ namespace MyCompiler2
                     }
                     else
                     {
-                        Console.WriteLine("ERROR in type of value in index arry");
+                        e.Message = "ERROR in type of value in index arry";
+                        e.lineNumber = lex.TL.tokens[index].line;
+                        EL.adderror(e);
                         return false;
                     }
                 }
             }
+            e.lineNumber = lex.TL.tokens[index].line;
+            EL.adderror(e);
             return false;
         }
         public bool outputvalue(string tmptype)
