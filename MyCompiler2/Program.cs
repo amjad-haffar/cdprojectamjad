@@ -15,8 +15,8 @@ namespace MyCompiler2
         static void Main(string[] args)
         {
             Parser pars = new Parser(@"class amjad {
+int sss(int ss){}
 int main(){
-int x=5;
 }
 }");
 

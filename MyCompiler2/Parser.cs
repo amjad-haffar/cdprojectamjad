@@ -41,6 +41,7 @@ namespace MyCompiler2
             {
                 this.programStatus = false;
                 Console.WriteLine(programStatus);
+               // EL.printList();
             }
         }
         public bool StartProgram()
@@ -67,10 +68,6 @@ namespace MyCompiler2
         //methodes
         public bool Methods()
         {
-            if (MainMethod())
-            {
-                return true;
-            }
             if (MethodList())
             {
                 if (MainMethod())
@@ -88,6 +85,10 @@ namespace MyCompiler2
             {
                 return true;
             }
+            int x = index--;
+            if ( lex.TL.tokens[x].value == "main")
+            { 
+                return true; }
             return false;
         }
         public bool Method(){
@@ -224,14 +225,14 @@ namespace MyCompiler2
                 }
                 else
                 {
-                    e.Message = ("ERRoR  must be main ");
+                    e.Message = ("ERRoR  must be main");
                     lex.TL.tokens[index].value = "main";
                     index--;
                 }
             }
             else
             {
-                e.Message = ("ERRoR  must be int ");
+                e.Message = ("ERRoR  expected int main");
                 lex.TL.tokens[index].value = "int";
 
             }

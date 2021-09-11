@@ -12,7 +12,6 @@ namespace MyCompiler2
         public ErrorList()
         {
             this.errors= new List<Error>();
-            this.errors.Add(new Error(-1, "compiled", "true"));
         }
         public void adderror(Error e){
             if (e.Message != "")
@@ -24,15 +23,7 @@ namespace MyCompiler2
         {
             for (int i = 0; i < errors.Count(); i++)
             {
-                if (errors.Count()==1 )
-                {
-                    Console.WriteLine(errors[i].Message);
-                    
-                }
-                if(i!=0)
-                {
-                    Console.WriteLine("error (" + i + ") at line " + errors[i].lineNumber + " :" + errors[i].Message);
-                }
+                Console.WriteLine("error (" + i + ") at line " + errors[i].lineNumber + " :" + errors[i].Message);
             }
         }
     }
