@@ -46,6 +46,10 @@
   <ItemGroup>
     <Compile Include="Error.cs" />
     <Compile Include="ErrorList.cs" />
+    <Compile Include="FunctionParamterSymbol Table.cs" />
+    <Compile Include="functionParamterSymbol.cs" />
+    <Compile Include="functionSymbol Table.cs" />
+    <Compile Include="functionSymbol.cs" />
     <Compile Include="Lexical.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />

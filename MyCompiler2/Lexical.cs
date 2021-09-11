@@ -365,7 +365,7 @@ namespace MyCompiler2
 
                         Token tok = new Token(Language.SpecialChar, ch + "", currentLine);
                         TL.addToken(tok);
-                        //Console.WriteLine(ch);
+                        Console.WriteLine(ch);
                         index++;
                     }
                 }
