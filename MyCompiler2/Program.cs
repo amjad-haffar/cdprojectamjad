@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +15,7 @@ namespace MyCompiler2
         static void Main(string[] args)
         {
             Parser pars = new Parser(@"class amjad {
-String dd(int y,int o,int h){}
+String dd(int y,int o,int h,int j){}
 int main(){
 int v;
 int h;
