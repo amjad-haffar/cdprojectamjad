@@ -15,7 +15,7 @@ namespace MyCompiler2
         static void Main(string[] args)
         {
             Parser pars = new Parser(@"class amjad {
-String dd(int y,int o,int h,int j){}
+String dd(int y,int o,int h){}
 int main(){
 int v;
 int h;
