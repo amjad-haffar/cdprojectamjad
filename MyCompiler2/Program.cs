@@ -9,9 +9,9 @@ namespace MyCompiler2
     class Program
     {
         /*
-
+        ر
        */
-
+      
         static void Main(string[] args)
         {
             Parser pars = new Parser(@"
