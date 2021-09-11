@@ -9,19 +9,16 @@ namespace MyCompiler2
     class Error
     {
         public int lineNumber;
-        public String code;
         public String Message;
         public Error()
         {
             this.lineNumber = -1;
-            this.code = "";
             this.Message = "";
         }
-        public Error(int l, String m,String c)
+        public Error(int l, String m)
         {
             this.lineNumber = l;
             this.Message = m;
-            this.code = c;
         }
     }
 }

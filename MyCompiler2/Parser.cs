@@ -58,11 +58,36 @@ namespace MyCompiler2
                         index++;
                         if (Methods())
                         {
-                            return true;
+                            try {
+                                if (lex.TL.tokens[index].value == "}")
+                                {
+                                    index++;
+                                    return true;
+                                }
+                            }
+                            catch (Exception s) { e.Message = "expected }"; }
                         }
                     }
+                    else
+                    {
+                        e.Message = "expected {";
+                    }
+                }
+                else
+                {
+                    e.Message = "class name error";
                 }
             }
+            else
+            {
+                e.Message = "expected a class";
+            }
+            try
+            {
+                e.lineNumber = lex.TL.tokens[index].line;
+            }
+            catch (Exception s) { e.lineNumber = lex.TL.tokens[index-1].line; }
+            EL.adderror(e);
             return false;
         }
         //methodes
@@ -75,7 +100,6 @@ namespace MyCompiler2
                     return true;
                 }
             }
-            
             return false;
 
         }
@@ -92,6 +116,7 @@ namespace MyCompiler2
             return false;
         }
         public bool Method(){
+            Error e = new Error();
             if(lex.TL.tokens[index].type==Language.DataType ){
                 index++;
                 if (lex.TL.tokens[index].type==Language.Identifer) {
@@ -114,10 +139,20 @@ namespace MyCompiler2
                                             index++;
                                             return true;
                                         }
+                                        else { e.Message = "expected }"; }
                                     }
                                 }
+                                else { e.Message = "expected {"; }
+                            }
+                            else
+                            {
+                                e.Message = "expected (";
                             }
                         }
+                    }
+                    else
+                    {
+                        e.Message = "expected )";
                     }
                 }
             }
@@ -136,6 +171,7 @@ namespace MyCompiler2
         }
         public bool Parameter()
         {
+            Error e = new Error();
             if (lex.TL.tokens[index].type == Language.DataType)
             {
                 index++;
@@ -144,14 +180,25 @@ namespace MyCompiler2
                     index++;
                     return true;
                 }
-                else { return false; }
-            } 
+                else {
+                    e.Message = "wrong identifier";
+                    e.lineNumber = lex.TL.tokens[index].line;
+                    EL.adderror(e);
+                    return false; }
+            }
+            else
+            {
+                e.Message = "expected datatype";
+            }
             if (lex.TL.tokens[index].value == ")") { 
                 return true; }
+            e.lineNumber = lex.TL.tokens[index].line;
+            EL.adderror(e);
             return false;
         }
         public bool PP()
         {
+            Error e = new Error();
             if (lex.TL.tokens[index].value == ",")
             {
                 index++;
@@ -159,9 +206,22 @@ namespace MyCompiler2
                 {
                     return true;
                 }
-                else { return false; }
+                else {
+                    e.Message = "wrong parameter";
+                    return false;
+                }
+            }
+            else
+            {
+                e.Message = "expected an id or value";
             }
             if (lex.TL.tokens[index].value == ")") { return true; }
+            else
+            {
+                e.Message = "expected )";
+            }
+            e.lineNumber = lex.TL.tokens[index].line;
+            EL.adderror(e);
             return false;
 
         }
@@ -260,7 +320,7 @@ namespace MyCompiler2
         {
             if (lex.TL.tokens[index].value == "else")
             {
-                EL.adderror(new Error(lex.TL.tokens[index].line,"if statment expected",""));
+                EL.adderror(new Error(lex.TL.tokens[index].line,"if statment expected"));
                 return false;
             }
             else
@@ -304,13 +364,16 @@ namespace MyCompiler2
                 }
                 
             }
-            
-            else if (lex.TL.tokens[index].value == "for" || lex.TL.tokens[index].value == "while")
+            else if (lex.TL.tokens[index].value == "for")
             {
-                if (Exprloop())
+                if (forloop())
                 {
                     return true;
                 }
+            }
+            else if (lex.TL.tokens[index].value == "while")
+            {
+                if (whileloop()) { return true; }
             }
             else if (lex.TL.tokens[index].value == "if")
             {
@@ -321,7 +384,8 @@ namespace MyCompiler2
             }
             else
             {
-                EL.adderror(new Error(lex.TL.tokens[index].line, "wrong start of statment", ""));
+                EL.adderror(new Error(lex.TL.tokens[index].line, "wrong start of statment"));
+                Console.WriteLine(lex.TL.tokens[index].value);
                 for (int search = index; search < lex.TL.tokens.Count; search++)
                 {
                     if (lex.TL.tokens[search].value == ";" || lex.TL.tokens[search].value == "}")
@@ -330,9 +394,10 @@ namespace MyCompiler2
                         break;
                     }
                 }
-                //return false;
+                return false;
             }
-            return false;
+            index++;
+            return true;
         }
         public bool loop2()
         {
@@ -401,7 +466,6 @@ namespace MyCompiler2
         }
         public bool Ds2(string tmptype)
         {
-
             Error e = new Error();
             Token tmpIdToken = lex.TL.tokens[index];
             if (lex.TL.tokens[index].type == Language.Identifer)
@@ -609,55 +673,96 @@ namespace MyCompiler2
             return false;
         }
         //loops
-        public bool Exprloop()
+        public bool forloop()
         {
-            if (lex.TL.tokens[index].value == "for" || lex.TL.tokens[index].value == "while")
+            Error e = new Error();
+            if (lex.TL.tokens[index].value == "for")
             {
-                if (lex.TL.tokens[index].value == "for")
+                index++;
+                if (lex.TL.tokens[index].value == "(")
                 {
                     index++;
-                    if (lex.TL.tokens[index].value == "(")
+                    if (DefinintionStmt())
                     {
-                        index++;
-                        if (DefinintionStmt())
+                        Token tmpTypeToken = lex.TL.tokens[index];
+                        //if (lex.TL.tokens[index].value == ";") { }
+                        if (Exp(tmpTypeToken.value))
                         {
-                            Token tmpTypeToken = lex.TL.tokens[index];
-                            if (Exp(tmpTypeToken.value))
+                            if (lex.TL.tokens[index].value == ";")
                             {
-                                if (lex.TL.tokens[index].value == ";")
+                                index++;
+                                Token tmpTypeToken2 = lex.TL.tokens[index];
+                                //if(Stmt())
+                                if (Exp(tmpTypeToken2.value))
                                 {
-                                    index++;
-                                    Token tmpTypeToken2 = lex.TL.tokens[index];
-                                    if (Exp(tmpTypeToken2.value))
+                                    if (lex.TL.tokens[index].value == ")")
                                     {
-                                        if (lex.TL.tokens[index].value == ")")
+                                        index++;
+                                        if (lex.TL.tokens[index].value == "{")
                                         {
                                             index++;
-                                            if (lex.TL.tokens[index].value == "{")
+                                            scopeCounter++;
+                                            if (StmtList())
                                             {
-                                                index++;
-                                                scopeCounter++;
-                                                if (StmtList())
+                                                if (lex.TL.tokens[index].value == "}")
                                                 {
-                                                    if (lex.TL.tokens[index].value == "}")
-                                                    {
-                                                        index++;
-                                                        ST.deleteSymbolsByScope(scopeCounter);
-                                                        Symbol.flag = false;
-                                                        scopeCounter--;
-                                                        return true;
-                                                    }
+                                                    index++;
+                                                    ST.deleteSymbolsByScope(scopeCounter);
+                                                    Symbol.flag = false;
+                                                    scopeCounter--;
+                                                    return true;
+                                                }
+                                                else
+                                                {
+                                                    e.lineNumber = lex.TL.tokens[index].line;
+                                                    e.Message = "expected }";
                                                 }
                                             }
                                         }
+                                        else
+                                        {
+                                            e.Message = "expected {";
+                                            e.lineNumber = lex.TL.tokens[index].line;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        e.Message = "expected )";
                                     }
                                 }
+                                else
+                                {
+                                    e.Message = "expected a statement";
+                                }
+                            }
+                            else
+                            {
+                                e.Message = "expected ;";
                             }
                         }
+                        else
+                        {
+                            e.Message = "expected condition";
+                        }
+                    }
+                    else
+                    {
+                        e.Message = "expected a to define the counter";
                     }
                 }
                 else
-                    if (lex.TL.tokens[index].value == "while")
+                {
+                    e.Message = "expected (";
+                }
+            }
+            e.lineNumber = lex.TL.tokens[index].line;
+            EL.adderror(e);
+            return false;
+        }
+        public bool whileloop()
+        {
+            Error e = new Error();
+            if (lex.TL.tokens[index].value == "while")
                 {
                     index++;
                     if (lex.TL.tokens[index].value == "(")
@@ -666,7 +771,6 @@ namespace MyCompiler2
                         Token tmpTypeToken = lex.TL.tokens[index];
                         if (Exp(tmpTypeToken.value))
                         {
-
                             if (lex.TL.tokens[index].value == ")")
                             {
                                 index++;
@@ -685,17 +789,36 @@ namespace MyCompiler2
                                             scopeCounter--;
                                             return true;
                                         }
+                                        else
+                                        {
+                                            e.lineNumber = lex.TL.tokens[index].line;
+                                            e.Message = "expected }";
+                                        }
                                     }
                                 }
+                                else
+                                {
+                                    e.lineNumber = lex.TL.tokens[index].line;
+                                    e.Message = "expected {";
+                                }
                             }
+                            else
+                            {
+                                e.Message = "expected )";
+                            }
+                        }
+                        else
+                        {
+                            e.Message = "expected a condition";
                         }
                     }
                 }
-            }
-            //else if (StmtList())
-            //{
-            //    return true;
-            //}
+                    else
+                    {
+                        e.Message = "expected (";
+                    }
+            e.lineNumber = lex.TL.tokens[index].line;
+            EL.adderror(e);
             return false;
         }
         //call function
@@ -1087,7 +1210,10 @@ namespace MyCompiler2
                         {
                             return true;
                         }
-
+                        else
+                        {
+                            e.Message = "expected an id or value";
+                        }
                     }
                     return true;
                 }
@@ -1135,18 +1261,14 @@ namespace MyCompiler2
         }
         public bool outputvalue(string tmptype)
         {
-
             if (lex.TL.tokens[index].value == "(" || lex.TL.tokens[index].type == Language.Identifer || lex.TL.tokens[index].type == Language.IntNumber || lex.TL.tokens[index].type == Language.trueBoolean || lex.TL.tokens[index].type == Language.falseBoolean || lex.TL.tokens[index].type == Language.String || lex.TL.tokens[index].type == Language.Char)
             {
                 if (SimpleExp(tmptype))
                 {
-
-
                     return true;
-
-
                 }
             }
+            Error e = new Error(lex.TL.tokens[index].line,"wrong value or identifier");
             return false;
 
         }
@@ -1178,13 +1300,12 @@ namespace MyCompiler2
         }
         public bool OutputStmt()
         {
-
+            Error e = new Error();
             if (lex.TL.tokens[index].value == "cout")
             {
                 index++;
                 if (lex.TL.tokens[index].value == "<<")
                 {
-
                     index++;
                     Token tmpTypeToken = lex.TL.tokens[index];
                     if (outputvalue(tmpTypeToken.value))
@@ -1193,12 +1314,15 @@ namespace MyCompiler2
                         {
                             return true;
                         }
-
                     }
-
                 }
-
+                else
+                {
+                    e.Message = "expected <<";
+                }
             }
+            e.lineNumber = lex.TL.tokens[index].line;
+            EL.adderror(e);
             return false;
         }
         public bool Loop()
